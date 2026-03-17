@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Eli's Restaurant — South Kensington, London</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Almendra+Display&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&family=Dancing+Script:wght@500;700&family=Cinzel:wght@400;600&family=Lato:wght@300;400;700&display=swap" rel="stylesheet">
+
+<style>
+/* ─── RESET & ROOT ─── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --parch:    #F5EDD8;
+  --parch2:   #EDE0C4;
+  --parch3:   #E0D0AC;
+  --ink:      #1C100A;
+  --ink2:     #2E1C12;
+  --terra:    #A8421C;
+  --terra-lt: #C45C30;
+  --gold:     #B8882A;
+  --gold-lt:  #D4A840;
+  --sage:     #4A5E40;
+  --rust:     #8B3A20;
+  --cream:    #FAF5EA;
+  --muted:    #6B5040;
+  --border:   rgba(28,16,10,0.15);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Crimson Pro', Georgia, serif;
+  background: var(--parch);
+  color: var(--ink);
+  overflow-x: hidden;
+  min-height: 100vh;
+  position: relative;
+}
+
+/* Paper grain overlay */
+body::after {
+  content: '';
+  position: fixed; inset: 0;
+  pointer-events: none; z-index: 9999;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='1'/%3E%3C/svg%3E");
+  background-size: 200px 200px;
+}
+
+/* ─── SCROLLBAR ─── */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--parch2); }
+::-webkit-scrollbar-thumb { background: var(--terra); border-radius: 3px; }
+
+/* ─── NAV ─── */
+nav {
+  position: fixed; top: 0; left: 0; width: 100%; z-index: 500;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 0 5vw; height: 64px;
+  background: rgba(28,16,10,0.95);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid rgba(184,136,42,0.2);
+  transition: all 0.3s;
+}
+
+.nav-wordmark {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.6rem; font-weight: 700;
+  color: var(--gold-lt);
+  letter-spacing: 0.02em;
+  text-decoration: none;
+}
+
+.nav-links {
+  display: flex; align-items: center; gap: 2rem; list-style: none;
+}
+.nav-links a {
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: rgba(245,237,216,0.55);
+  text-decoration: none; transition: color 0.2s;
+}
+.nav-links a:hover { color: var(--gold-lt); }
+
+.nav-book {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem; letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--parch) !important;
+  background: var(--terra);
+  padding: 0.5rem 1.2rem;
+  border-radius: 1px;
+  transition: background 0.2s !important;
+}
+.nav-book:hover { background: var(--rust) !important; color: var(--parch) !important; }
+
+/* ─── HERO ─── */
+#hero {
+  min-height: 100vh;
+  display: flex; flex-direction: column;
+  align-items: center; justify-content: center;
+  background: var(--ink);
+  position: relative; overflow: hidden;
+  padding-top: 64px;
+}
+
+/* Warm background glow */
+.hero-glow {
+  position: absolute; inset: 0; pointer-events: none;
+  background:
+    radial-gradient(ellipse 70% 50% at 50% 70%, rgba(168,66,28,0.22) 0%, transparent 65%),
+    radial-gradient(ellipse 50% 40% at 30% 40%, rgba(184,136,42,0.1) 0%, transparent 55%),
+    radial-gradient(ellipse 40% 30% at 75% 35%, rgba(168,66,28,0.08) 0%, transparent 50%);
+}
+
+/* Tile pattern */
+.hero-tile {
+  position: absolute; inset: 0; opacity: 0.035;
+  background-image:
+    linear-gradient(45deg, #D4A840 25%, transparent 25%),
+    linear-gradient(-45deg, #D4A840 25%, transparent 25%),
+    linear-gradient(45deg, transparent 75%, #D4A840 75%),
+    linear-gradient(-45deg, transparent 75%, #D4A840 75%);
+  background-size: 20px 20px;
+  background-position: 0 0, 0 10px, 10px -10px, -10px 0px;
+}
+
+/* The big animated logo */
+.hero-logo-wrap {
+  position: relative; z-index: 2;
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+/* SVG drawn name */
+.elis-svg {
+  display: block;
+  width: min(480px, 82vw);
+  overflow: visible;
+  margin: 0 auto;
+}
+
+.elis-path {
+  fill: none;
+  stroke: var(--gold-lt);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 1200;
+  animation: drawName 2.8s cubic-bezier(0.4, 0, 0.2, 1) 0.4s forwards;
+}
+
+.elis-fill {
+  fill: var(--gold-lt);
+  opacity: 0;
+  animation: fillName 0.8s ease 2.8s forwards;
+}
+
+.elis-stroke-fade {
+  fill: none;
+  stroke: var(--gold-lt);
+  stroke-width: 2.2;
+  stroke-linecap: round;
+  stroke-dasharray: 1200;
+  stroke-dashoffset: 0;
+  animation: fadeStroke 0.8s ease 2.8s forwards;
+}
+
+@keyframes drawName {
+  to { stroke-dashoffset: 0; }
+}
+@keyframes fillName {
+  to { opacity: 1; }
+}
+@keyframes fadeStroke {
+  to { opacity: 0; }
+}
+
+/* Underline flourish */
+.flourish-svg {
+  display: block;
+  width: min(340px, 70vw);
+  margin: 0.3rem auto 0;
+  overflow: visible;
+}
+.flourish-path {
+  fill: none;
+  stroke: var(--terra);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-dasharray: 600;
+  stroke-dashoffset: 600;
+  animation: drawFlourish 1.4s ease 3.0s forwards;
+}
+@keyframes drawFlourish {
+  to { stroke-dashoffset: 0; }
+}
+
+.hero-sub {
+  font-family: 'Cinzel', serif;
+  font-size: clamp(0.62rem, 1.8vw, 0.78rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  color: rgba(245,237,216,0.4);
+  position: relative; z-index: 2;
+  opacity: 0;
+  animation: fadeIn 1s ease 3.5s forwards;
+  margin-bottom: 0.7rem;
+}
+
+.hero-tagline {
+  font-family: 'Crimson Pro', serif;
+  font-size: clamp(1rem, 2.5vw, 1.25rem);
+  font-style: italic; font-weight: 300;
+  color: rgba(245,237,216,0.55);
+  letter-spacing: 0.04em;
+  position: relative; z-index: 2;
+  opacity: 0;
+  animation: fadeIn 1s ease 3.7s forwards;
+  margin-bottom: 2.5rem;
+}
+
+.hero-actions {
+  display: flex; gap: 1.2rem; justify-content: center; flex-wrap: wrap;
+  position: relative; z-index: 2;
+  opacity: 0;
+  animation: fadeIn 1s ease 3.9s forwards;
+}
+
+@keyframes fadeIn { to { opacity: 1; } }
+
+.btn-ink {
+  font-family: 'Cinzel', serif;
+  font-size: 0.64rem; letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: var(--terra);
+  color: var(--parch);
+  padding: 0.9rem 2.2rem;
+  text-decoration: none;
+  border-radius: 1px;
+  border: none; cursor: pointer;
+  transition: background 0.2s, transform 0.15s;
+  display: inline-block;
+}
+.btn-ink:hover { background: var(--rust); transform: translateY(-1px); }
+
+.btn-outline {
+  font-family: 'Cinzel', serif;
+  font-size: 0.64rem; letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: transparent;
+  color: rgba(245,237,216,0.65);
+  padding: 0.9rem 2.2rem;
+  text-decoration: none;
+  border-radius: 1px;
+  border: 1px solid rgba(245,237,216,0.2);
+  transition: border-color 0.2s, color 0.2s;
+  display: inline-block;
+}
+.btn-outline:hover { border-color: var(--gold); color: var(--gold-lt); }
+
+.hero-scroll-hint {
+  position: absolute; bottom: 2rem; left: 50%;
+  transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 0.5rem;
+  opacity: 0; animation: fadeIn 1s ease 4.5s forwards;
+}
+.scroll-dot {
+  width: 5px; height: 5px; border-radius: 50%;
+  background: var(--gold);
+  animation: bounce 1.8s ease-in-out infinite;
+}
+@keyframes bounce {
+  0%,100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(8px); opacity: 1; }
+}
+.hero-scroll-hint span {
+  font-family: 'Cinzel', serif;
+  font-size: 0.55rem; letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: rgba(245,237,216,0.25);
+}
+
+/* ─── INFO BAND ─── */
+.info-band {
+  background: var(--ink2);
+  border-top: 1px solid rgba(184,136,42,0.15);
+  border-bottom: 1px solid rgba(184,136,42,0.15);
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  text-align: center;
+}
+.band-item {
+  padding: 1.5rem 1rem;
+  border-right: 1px solid rgba(245,237,216,0.06);
+}
+.band-item:last-child { border-right: none; }
+.band-label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.58rem; letter-spacing: 0.25em;
+  text-transform: uppercase; color: var(--gold);
+  margin-bottom: 0.4rem;
+}
+.band-val {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.95rem; font-weight: 300;
+  color: rgba(245,237,216,0.65);
+  line-height: 1.5;
+}
+.band-val a { color: var(--gold-lt); text-decoration: none; }
+
+/* ─── ORNAMENTAL DIVIDERS ─── */
+.ornament-wrap { text-align: center; margin: 2.5rem 0 2rem; }
+.ornament-svg { display: inline-block; }
+
+/* ─── ABOUT SECTION ─── */
+#about {
+  background: var(--cream);
+  padding: 5rem 5vw;
+  position: relative;
+}
+#about::before {
+  content: '';
+  position: absolute; top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  opacity: 0.4;
+}
+
+.about-inner {
+  max-width: 860px; margin: 0 auto;
+  text-align: center;
+}
+.section-eyebrow {
+  font-family: 'Cinzel', serif;
+  font-size: 0.62rem; letter-spacing: 0.3em;
+  text-transform: uppercase; color: var(--terra);
+  margin-bottom: 0.8rem;
+  display: block;
+}
+.section-heading {
+  font-family: 'Almendra Display', serif;
+  font-size: clamp(1.8rem, 4vw, 2.8rem);
+  font-weight: 400; color: var(--ink);
+  line-height: 1.2;
+  margin-bottom: 1.5rem;
+}
+.about-text {
+  font-size: 1.12rem; font-weight: 300;
+  line-height: 1.95; color: var(--muted);
+  max-width: 640px; margin: 0 auto 1.5rem;
+}
+.about-text + .about-text { margin-top: 0; }
+
+.about-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0;
+  margin-top: 3.5rem;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+}
+.pillar {
+  padding: 2rem 1.5rem;
+  border-right: 1px solid var(--border);
+  text-align: center;
+}
+.pillar:last-child { border-right: none; }
+.pillar-icon {
+  font-family: 'Dancing Script', cursive;
+  font-size: 2rem; color: var(--gold);
+  display: block; margin-bottom: 0.6rem;
+  line-height: 1;
+}
+.pillar h4 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.68rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--ink);
+  margin-bottom: 0.6rem; font-weight: 400;
+}
+.pillar p {
+  font-size: 0.9rem; font-weight: 300;
+  color: var(--muted); line-height: 1.65;
+}
+
+/* ─── MENU SECTION ─── */
+#menu {
+  background: var(--parch);
+  padding: 5rem 0 6rem;
+  position: relative;
+}
+
+.menu-intro {
+  text-align: center;
+  padding: 0 5vw 3rem;
+}
+
+/* Menu navigation */
+.menu-nav {
+  display: flex; flex-wrap: wrap; justify-content: center;
+  gap: 0;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 0 0 3rem;
+  padding: 0 5vw;
+  background: var(--parch2);
+}
+
+.menu-nav-btn {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem; letter-spacing: 0.2em;
+  text-transform: uppercase;
+  background: transparent; border: none;
+  color: var(--muted);
+  padding: 1rem 1.2rem;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  transition: color 0.2s, border-color 0.2s;
+  white-space: nowrap;
+  font-weight: 400;
+}
+.menu-nav-btn:hover { color: var(--ink); }
+.menu-nav-btn.active {
+  color: var(--terra);
+  border-bottom-color: var(--terra);
+}
+
+/* Menu panels */
+.menu-panel { display: none; padding: 0 5vw; }
+.menu-panel.active { display: block; }
+
+/* Category header */
+.cat-header {
+  display: flex; align-items: center; gap: 1.5rem;
+  margin-bottom: 2rem;
+}
+.cat-line {
+  flex: 1; height: 1px;
+  background: linear-gradient(90deg, var(--border), transparent);
+}
+.cat-line.right {
+  background: linear-gradient(270deg, var(--border), transparent);
+}
+.cat-title {
+  font-family: 'Almendra Display', serif;
+  font-size: clamp(1.5rem, 3vw, 2.1rem);
+  font-weight: 400; color: var(--ink);
+  text-align: center; white-space: nowrap;
+}
+.cat-sub {
+  text-align: center;
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.9rem; font-style: italic; font-weight: 300;
+  color: var(--muted);
+  margin: -1.4rem 0 2.2rem;
+}
+
+/* Menu grid */
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  margin-bottom: 3.5rem;
+  background: var(--cream);
+}
+.menu-grid.two-col {
+  grid-template-columns: repeat(2, 1fr);
+}
+
+.dish {
+  padding: 1.3rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  position: relative;
+  transition: background 0.2s;
+}
+.dish:hover { background: var(--parch2); }
+
+/* Remove double borders */
+.menu-grid:not(.two-col) .dish:nth-child(odd) { border-right: 1px solid var(--border); }
+.menu-grid:not(.two-col) .dish:nth-child(even) { border-right: none; }
+
+.dish-top {
+  display: flex; align-items: flex-start;
+  justify-content: space-between; gap: 0.8rem;
+  margin-bottom: 0.3rem;
+}
+.dish-name {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1.05rem; font-weight: 600;
+  color: var(--ink); line-height: 1.3;
+  flex: 1;
+}
+.dish-price {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.95rem; font-weight: 600;
+  color: var(--terra);
+  white-space: nowrap; padding-top: 1px;
+}
+.dish-desc {
+  font-size: 0.88rem; font-weight: 300;
+  color: var(--muted); line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+.dish-badges {
+  display: flex; gap: 0.4rem; flex-wrap: wrap; margin-top: 0.4rem;
+}
+.badge {
+  font-family: 'Cinzel', serif;
+  font-size: 0.52rem; letter-spacing: 0.15em;
+  text-transform: uppercase;
+  padding: 0.18rem 0.55rem;
+  border-radius: 1px;
+  font-weight: 400;
+}
+.badge-vegan {
+  color: var(--sage);
+  border: 1px solid rgba(74,94,64,0.35);
+  background: rgba(74,94,64,0.07);
+}
+.badge-veg {
+  color: #5A7830;
+  border: 1px solid rgba(90,120,48,0.35);
+  background: rgba(90,120,48,0.07);
+}
+.badge-sig {
+  color: var(--terra);
+  border: 1px solid rgba(168,66,28,0.35);
+  background: rgba(168,66,28,0.07);
+}
+
+/* Special wide dish (like shared platter) */
+.dish.full-width {
+  grid-column: 1 / -1;
+  border-right: none;
+  background: rgba(168,66,28,0.04);
+}
+.dish.full-width .dish-name { color: var(--terra); font-style: italic; }
+
+/* Wine table style */
+.wine-grid {
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  margin-bottom: 3.5rem;
+  background: var(--cream);
+  overflow: hidden;
+}
+.wine-item {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: start;
+  gap: 1rem;
+  padding: 1.1rem 1.5rem;
+  border-bottom: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.wine-item:last-child { border-bottom: none; }
+.wine-item:hover { background: var(--parch2); }
+.wine-name {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem; font-weight: 600; color: var(--ink);
+  margin-bottom: 0.15rem;
+}
+.wine-origin {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.82rem; font-weight: 300; font-style: italic;
+  color: var(--muted); margin-bottom: 0.3rem;
+}
+.wine-badges { display: flex; gap: 0.35rem; flex-wrap: wrap; }
+.wine-prices {
+  text-align: right;
+  font-family: 'Crimson Pro', serif;
+}
+.wine-price-line {
+  font-size: 0.88rem; color: var(--terra); font-weight: 600;
+  line-height: 1.7;
+}
+.wine-price-label {
+  font-size: 0.72rem; color: var(--muted); font-weight: 300;
+}
+
+/* Cocktail grid */
+.cocktail-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--cream);
+  margin-bottom: 3.5rem;
+}
+.cocktail {
+  padding: 1.4rem 1.6rem;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.cocktail:hover { background: var(--parch2); }
+.cocktail-name {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.3rem; font-weight: 700;
+  color: var(--ink); margin-bottom: 0.3rem;
+}
+.cocktail-desc {
+  font-size: 0.83rem; font-weight: 300;
+  color: var(--muted); line-height: 1.55;
+  margin-bottom: 0.4rem;
+}
+.cocktail-price {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.92rem; font-weight: 600; color: var(--terra);
+}
+
+/* Beer row */
+.beer-row {
+  display: flex; gap: 1px; flex-wrap: wrap;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--border);
+  overflow: hidden;
+  margin-bottom: 3.5rem;
+}
+.beer-item {
+  flex: 1; min-width: 160px;
+  background: var(--cream);
+  padding: 1.3rem 1.5rem;
+  text-align: center;
+  transition: background 0.2s;
+}
+.beer-item:hover { background: var(--parch2); }
+.beer-name {
+  font-family: 'Crimson Pro', serif;
+  font-size: 1rem; font-weight: 600; color: var(--ink);
+  margin-bottom: 0.25rem;
+}
+.beer-size { font-size: 0.82rem; font-weight: 300; color: var(--muted); }
+.beer-price { font-size: 0.92rem; font-weight: 600; color: var(--terra); margin-top: 0.3rem; }
+
+/* Hot drinks two col */
+.hotdrinks-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0;
+  border: 1px solid var(--border);
+  border-radius: 2px;
+  background: var(--cream);
+  margin-bottom: 3.5rem;
+}
+.hotdrink {
+  display: flex; justify-content: space-between; align-items: baseline;
+  padding: 0.85rem 1.4rem;
+  border-bottom: 1px solid var(--border);
+  border-right: 1px solid var(--border);
+  transition: background 0.2s;
+}
+.hotdrink:nth-child(even) { border-right: none; }
+.hotdrink:hover { background: var(--parch2); }
+.hotdrink-name {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.95rem; font-weight: 400; color: var(--ink);
+}
+.hotdrink-price {
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.9rem; font-weight: 600; color: var(--terra);
+  margin-left: 0.8rem; white-space: nowrap;
+}
+
+/* ─── BOOKING ─── */
+#booking {
+  background: var(--ink);
+  padding: 5.5rem 5vw;
+  position: relative;
+  overflow: hidden;
+}
+#booking::before {
+  content: '';
+  position: absolute; inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 50% 100%, rgba(168,66,28,0.18) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.booking-grid {
+  max-width: 1100px; margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 5rem; align-items: start;
+  position: relative;
+}
+
+.booking-info .section-eyebrow { color: var(--gold); }
+.booking-info .section-heading { color: var(--parch); }
+.booking-lead {
+  font-size: 1.05rem; font-weight: 300;
+  color: rgba(245,237,216,0.5); line-height: 1.85;
+  margin-bottom: 2.5rem;
+}
+.info-rows { display: flex; flex-direction: column; gap: 1.4rem; }
+.info-row { display: flex; gap: 1rem; align-items: flex-start; }
+.info-dot {
+  width: 6px; height: 6px; border-radius: 50%;
+  background: var(--terra); flex-shrink: 0; margin-top: 0.45rem;
+}
+.info-row h5 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.6rem; letter-spacing: 0.2em;
+  text-transform: uppercase; color: var(--gold);
+  font-weight: 400; margin-bottom: 0.3rem;
+}
+.info-row p {
+  font-size: 0.92rem; font-weight: 300;
+  color: rgba(245,237,216,0.55); line-height: 1.65;
+}
+.info-row a { color: var(--gold-lt); text-decoration: none; }
+.closed-badge {
+  display: inline-block;
+  font-family: 'Cinzel', serif;
+  font-size: 0.58rem; letter-spacing: 0.15em;
+  text-transform: uppercase; font-weight: 400;
+  background: rgba(168,66,28,0.18);
+  border: 1px solid rgba(168,66,28,0.35);
+  color: #D47050;
+  padding: 0.22rem 0.65rem;
+  border-radius: 1px;
+  margin-top: 0.35rem; display: block; width: fit-content;
+}
+
+/* Form */
+.form-card {
+  background: rgba(245,237,216,0.05);
+  border: 1px solid rgba(245,237,216,0.1);
+  border-radius: 2px; padding: 2.5rem;
+}
+.form-card h3 {
+  font-family: 'Almendra Display', serif;
+  font-size: 1.5rem; font-weight: 400;
+  color: var(--parch); margin-bottom: 2rem;
+}
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 0.8rem; margin-bottom: 0.8rem; }
+.fg { display: flex; flex-direction: column; gap: 0.35rem; margin-bottom: 0.8rem; }
+.fg label {
+  font-family: 'Cinzel', serif;
+  font-size: 0.57rem; letter-spacing: 0.18em;
+  text-transform: uppercase; font-weight: 400;
+  color: rgba(245,237,216,0.35);
+}
+.fg input, .fg select, .fg textarea {
+  background: rgba(245,237,216,0.06);
+  border: 1px solid rgba(245,237,216,0.1);
+  border-radius: 1px; color: var(--parch);
+  font-family: 'Crimson Pro', serif;
+  font-size: 0.95rem; font-weight: 300;
+  padding: 0.7rem 1rem; outline: none;
+  transition: border-color 0.2s;
+}
+.fg input:focus, .fg select:focus, .fg textarea:focus {
+  border-color: rgba(184,136,42,0.5);
+}
+.fg select option { background: var(--ink2); }
+.fg textarea { resize: vertical; min-height: 70px; }
+.form-submit-btn {
+  width: 100%; margin-top: 0.6rem;
+  background: var(--terra); color: var(--parch);
+  border: none; cursor: pointer; border-radius: 1px;
+  padding: 1rem;
+  font-family: 'Cinzel', serif;
+  font-size: 0.65rem; letter-spacing: 0.2em;
+  text-transform: uppercase; font-weight: 400;
+  transition: background 0.2s;
+}
+.form-submit-btn:hover { background: var(--rust); }
+.form-note {
+  font-size: 0.78rem; font-weight: 300;
+  color: rgba(245,237,216,0.25);
+  text-align: center; margin-top: 0.8rem;
+  font-style: italic;
+}
+
+/* ─── MAP ─── */
+#find-us {
+  display: grid; grid-template-columns: 1fr 2fr;
+  background: var(--parch2);
+  border-top: 1px solid var(--border);
+}
+.find-info {
+  padding: 4rem 3.5rem;
+  display: flex; flex-direction: column; justify-content: center;
+  background: var(--ink2);
+}
+.find-info .section-eyebrow { color: var(--gold); }
+.find-info .section-heading { color: var(--parch); font-size: 1.8rem; margin-bottom: 2rem; }
+.find-details { display: flex; flex-direction: column; gap: 1.3rem; }
+.find-row { display: flex; gap: 0.8rem; }
+.find-dot { width: 5px; height: 5px; border-radius: 50%; background: var(--terra); flex-shrink: 0; margin-top: 0.5rem; }
+.find-row h5 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.58rem; letter-spacing: 0.18em;
+  text-transform: uppercase; color: var(--gold); font-weight: 400; margin-bottom: 0.25rem;
+}
+.find-row p { font-size: 0.9rem; font-weight: 300; color: rgba(245,237,216,0.55); line-height: 1.65; }
+.find-row a { color: var(--gold-lt); text-decoration: none; }
+
+.map-wrap { height: 420px; overflow: hidden; }
+.map-wrap iframe { width: 100%; height: 100%; border: none; }
+
+/* ─── FOOTER ─── */
+footer {
+  background: var(--ink);
+  padding: 3rem 5vw 2rem;
+  border-top: 1px solid rgba(184,136,42,0.12);
+}
+.footer-inner {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1fr;
+  gap: 3rem; margin-bottom: 2.5rem;
+}
+.foot-brand-name {
+  font-family: 'Dancing Script', cursive;
+  font-size: 1.8rem; font-weight: 700;
+  color: var(--gold-lt); margin-bottom: 0.6rem;
+  display: block;
+}
+.foot-brand p {
+  font-size: 0.88rem; font-weight: 300;
+  color: rgba(245,237,216,0.35); line-height: 1.7;
+  max-width: 280px;
+}
+.foot-col h5 {
+  font-family: 'Cinzel', serif;
+  font-size: 0.58rem; letter-spacing: 0.22em;
+  text-transform: uppercase; font-weight: 400;
+  color: rgba(245,237,216,0.28); margin-bottom: 1rem;
+}
+.foot-col a, .foot-col p {
+  display: block;
+  font-size: 0.88rem; font-weight: 300;
+  color: rgba(245,237,216,0.45);
+  text-decoration: none; line-height: 2;
+  transition: color 0.2s;
+}
+.foot-col a:hover { color: var(--gold-lt); }
+.footer-bottom {
+  border-top: 1px solid rgba(245,237,216,0.06);
+  padding-top: 1.5rem;
+  display: flex; justify-content: space-between; align-items: center;
+  flex-wrap: wrap; gap: 0.5rem;
+}
+.footer-bottom p { font-size: 0.75rem; font-weight: 300; color: rgba(245,237,216,0.2); }
+.foot-socials { display: flex; gap: 1.5rem; }
+.foot-socials a {
+  font-family: 'Cinzel', serif;
+  font-size: 0.58rem; letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: rgba(245,237,216,0.28); text-decoration: none;
+  transition: color 0.2s;
+}
+.foot-socials a:hover { color: var(--gold-lt); }
+
+/* ─── SCROLL REVEAL ─── */
+.reveal {
+  opacity: 0; transform: translateY(20px);
+  transition: opacity 0.7s ease, transform 0.7s ease;
+}
+.reveal.vis { opacity: 1; transform: none; }
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 900px) {
+  .info-band { grid-template-columns: 1fr 1fr; }
+  .about-pillars { grid-template-columns: 1fr; }
+  .pillar { border-right: none; border-bottom: 1px solid var(--border); }
+  .pillar:last-child { border-bottom: none; }
+  .menu-grid { grid-template-columns: 1fr; }
+  .menu-grid .dish { border-right: none; }
+  .hotdrinks-grid { grid-template-columns: 1fr; }
+  .hotdrink { border-right: none; }
+  .booking-grid { grid-template-columns: 1fr; gap: 3rem; }
+  #find-us { grid-template-columns: 1fr; }
+  .map-wrap { height: 280px; }
+  .footer-inner { grid-template-columns: 1fr 1fr; gap: 2rem; }
+  .nav-links { display: none; }
+  .wine-grid .wine-item { grid-template-columns: 1fr; }
+  .wine-prices { text-align: left; }
+  .two-col { grid-template-columns: 1fr; }
+}
+@media (max-width: 580px) {
+  .info-band { grid-template-columns: 1fr 1fr; }
+  .band-item:nth-child(3), .band-item:nth-child(4) { border-top: 1px solid rgba(245,237,216,0.06); }
+  section { padding: 3.5rem 1.2rem; }
+  .footer-inner { grid-template-columns: 1fr; }
+  .form-row { grid-template-columns: 1fr; }
+  .cocktail-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+
+<!-- ════ NAV ════ -->
+<nav>
+  <a href="#" class="nav-wordmark">Eli's</a>
+  <ul class="nav-links">
+    <li><a href="#about">Story</a></li>
+    <li><a href="#menu">Menu</a></li>
+    <li><a href="#booking">Reservations</a></li>
+    <li><a href="#find-us">Find Us</a></li>
+    <li><a href="#booking" class="nav-book">Book a Table</a></li>
+  </ul>
+</nav>
+
+<!-- ════ HERO ════ -->
+<section id="hero">
+  <div class="hero-glow"></div>
+  <div class="hero-tile"></div>
+
+  <div class="hero-logo-wrap">
+    <!-- SVG hand-drawn name animation -->
+    <svg class="elis-svg" viewBox="0 0 480 120" xmlns="http://www.w3.org/2000/svg">
+      <defs>
+        <style>
+          @import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap');
+        </style>
+      </defs>
+      <!-- Stroke layer (animates drawing) -->
+      <text class="elis-path" x="240" y="95"
+        font-family="'Dancing Script', cursive" font-size="96" font-weight="700"
+        text-anchor="middle" letter-spacing="4">Eli's</text>
+      <!-- Fill layer (fades in after stroke) -->
+      <text class="elis-fill" x="240" y="95"
+        font-family="'Dancing Script', cursive" font-size="96" font-weight="700"
+        text-anchor="middle" letter-spacing="4" fill="#D4A840">Eli's</text>
+      <!-- Stroke fade layer -->
+      <text class="elis-stroke-fade" x="240" y="95"
+        font-family="'Dancing Script', cursive" font-size="96" font-weight="700"
+        text-anchor="middle" letter-spacing="4">Eli's</text>
+    </svg>
+
+    <!-- Decorative flourish underline -->
+    <svg class="flourish-svg" viewBox="0 0 340 30" xmlns="http://www.w3.org/2000/svg">
+      <path class="flourish-path"
+        d="M10,15 Q60,4 100,15 Q140,26 170,15 Q200,4 240,15 Q280,26 320,13 Q334,8 340,15"
+        fill="none"/>
+      <circle cx="10" cy="15" r="3" fill="#A8421C" opacity="0" style="animation: fadeIn 0.3s ease 4.3s forwards"/>
+      <circle cx="340" cy="15" r="3" fill="#A8421C" opacity="0" style="animation: fadeIn 0.3s ease 4.3s forwards"/>
+    </svg>
+  </div>
+
+  <p class="hero-sub">South Kensington · London</p>
+  <p class="hero-tagline">Mediterranean &amp; North African · French Rotisserie · Fine Wine</p>
+
+  <div class="hero-actions">
+    <a href="#booking" class="btn-ink">Reserve a Table</a>
+    <a href="#menu" class="btn-outline">View the Menu</a>
+  </div>
+
+  <div class="hero-scroll-hint">
+    <span>Scroll</span>
+    <div class="scroll-dot"></div>
+  </div>
+</section>
+
+<!-- ════ INFO BAND ════ -->
+<div class="info-band">
+  <div class="band-item">
+    <div class="band-label">Hours</div>
+    <div class="band-val">Mon – Sat<br>12:00 – 22:00</div>
+  </div>
+  <div class="band-item">
+    <div class="band-label">Address</div>
+    <div class="band-val">6-8 Bute Street<br>South Kensington SW7</div>
+  </div>
+  <div class="band-item">
+    <div class="band-label">Telephone</div>
+    <div class="band-val"><a href="tel:+442075812002">+44 (0) 20 7581 2002</a></div>
+  </div>
+  <div class="band-item">
+    <div class="band-label">Closed</div>
+    <div class="band-val" style="color:#D47050;">Every Sunday</div>
+  </div>
+</div>
+
+<!-- ════ ABOUT ════ -->
+<section id="about">
+  <div class="about-inner reveal">
+    <span class="section-eyebrow">Our Story</span>
+    <h2 class="section-heading">Where North Africa Meets<br>the South of France</h2>
+
+    <!-- SVG ornament -->
+    <div class="ornament-wrap">
+      <svg class="ornament-svg" width="260" height="20" viewBox="0 0 260 20" xmlns="http://www.w3.org/2000/svg">
+        <line x1="0" y1="10" x2="100" y2="10" stroke="var(--border)" stroke-width="1"/>
+        <path d="M105,10 L112,4 L119,10 L126,4 L133,10 L126,16 L119,10 L112,16 Z"
+          fill="none" stroke="var(--gold)" stroke-width="1" opacity="0.6"/>
+        <circle cx="130" cy="10" r="2" fill="var(--terra)" opacity="0.6"/>
+        <line x1="137" y1="10" x2="260" y2="10" stroke="var(--border)" stroke-width="1"/>
+      </svg>
+    </div>
+
+    <p class="about-text">
+      Eli's is a singular culinary destination in the heart of South Kensington — a place where the rotisserie tradition of southern France meets the vibrant soul of Mediterranean and traditional Algerian cooking. Our corn-fed chickens are imported from France, marinated for 24 hours in a secret blend of herbs and spices, then rotated slowly until golden and succulent.
+    </p>
+    <p class="about-text">
+      Our chef prepares everything in house — from handmade couscous to fresh mezze — so that every plate carries the care and craft of a family kitchen. At Eli's, warmth is an ingredient, and every guest is welcomed as family.
+    </p>
+
+    <div class="about-pillars">
+      <div class="pillar">
+        <span class="pillar-icon">24h</span>
+        <h4>Marinated Overnight</h4>
+        <p>Our chickens rest in a secret herb and spice blend for a full 24 hours before the oven.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon" style="font-size:1.4rem;">In House</span>
+        <h4>Everything Made Here</h4>
+        <p>Couscous, sauces, gravies and mezze — all crafted fresh daily in our kitchen.</p>
+      </div>
+      <div class="pillar">
+        <span class="pillar-icon" style="font-size:1.1rem; letter-spacing:-0.02em;">French</span>
+        <h4>Corn-Fed from France</h4>
+        <p>We import our chickens from France for exceptional quality, flavour and tenderness.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ MENU ════ -->
+<section id="menu">
+  <div class="menu-intro reveal">
+    <span class="section-eyebrow">The Menu</span>
+    <h2 class="section-heading" style="font-family:'Almendra Display',serif;font-size:clamp(1.8rem,4vw,2.8rem);">A Table Full of Stories</h2>
+    <p style="font-family:'Crimson Pro',serif;font-size:1rem;font-style:italic;font-weight:300;color:var(--muted);margin-top:0.4rem;">
+      All dishes prepared fresh daily. Prices include VAT.
+    </p>
+  </div>
+
+  <!-- Menu navigation tabs -->
+  <div class="menu-nav">
+    <button class="menu-nav-btn active" onclick="showMenu('cold-mezze',this)">Cold Mezze</button>
+    <button class="menu-nav-btn" onclick="showMenu('hot-mezze',this)">Hot Mezze</button>
+    <button class="menu-nav-btn" onclick="showMenu('couscous',this)">Couscous</button>
+    <button class="menu-nav-btn" onclick="showMenu('rotisserie',this)">Rotisserie</button>
+    <button class="menu-nav-btn" onclick="showMenu('sides',this)">Sides</button>
+    <button class="menu-nav-btn" onclick="showMenu('salad-soup',this)">Salads &amp; Soup</button>
+    <button class="menu-nav-btn" onclick="showMenu('desserts',this)">Desserts</button>
+    <button class="menu-nav-btn" onclick="showMenu('wines',this)">Wine</button>
+    <button class="menu-nav-btn" onclick="showMenu('cocktails',this)">Cocktails &amp; Beer</button>
+    <button class="menu-nav-btn" onclick="showMenu('hot-drinks',this)">Hot Drinks</button>
+  </div>
+
+  <!-- ── COLD MEZZE ── -->
+  <div id="cold-mezze" class="menu-panel active reveal">
+    <div class="cat-header">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">Cold Mezze</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <p class="cat-sub">Served at room temperature · Perfect for sharing</p>
+    <div class="menu-grid">
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Mix of Spiced Olives</div>
+          <div class="dish-price">£5.00</div>
+        </div>
+        <p class="dish-desc">Spiced pitted olives, preserved in lemon juice, olive oil and garlic.</p>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Hummus</div>
+          <div class="dish-price">£5.50</div>
+        </div>
+        <p class="dish-desc">Chick pea, tahini, lemon juice and garlic.</p>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Chilli Hummus</div>
+          <div class="dish-price">£5.50</div>
+        </div>
+        <p class="dish-desc">Chick pea, tahini, lemon juice, garlic and Jalapeño.</p>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Baba Ganouch (Moutabel)</div>
+          <div class="dish-price">£7.00</div>
+        </div>
+        <p class="dish-desc">Chargrilled aubergine blended with tahini, lemon juice and garlic.</p>
+        <div class="dish-badges"><span class="badge badge-veg">Vegetarian</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Eli's Vegetable Dip</div>
+          <div class="dish-price">£5.50</div>
+        </div>
+        <p class="dish-desc">Roasted aubergine, red pepper blended with garlic, lemon &amp; olive oil.</p>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Stuffed Vine Leaves</div>
+          <div class="dish-price">£6.00</div>
+        </div>
+        <p class="dish-desc">Vine leaves filled with rice, herb, cooked in lemon juice &amp; olive oil.</p>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+      <div class="dish full-width">
+        <div class="dish-top">
+          <div class="dish-name">✦ Shared Cold Platter</div>
+          <div class="dish-price">£14.00</div>
+        </div>
+        <p class="dish-desc">Your choice of any 3 cold mezze, served with warm pitta bread.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HOT MEZZE ── -->
+  <div id="hot-mezze" class="menu-panel reveal">
+    <div class="cat-header">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">Hot Mezze</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <p class="cat-sub">Freshly prepared · Served hot from the kitchen</p>
+    <div class="menu-grid">
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Falafel</div>
+          <div class="dish-price">£6.00</div>
+        </div>
+        <p class="dish-desc">Chick pea, parsley, garlic, topped with sesame seeds. Deep fried and served with tahini sauce.</p>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Chicken Wings</div>
+          <div class="dish-price">£6.00</div>
+        </div>
+        <p class="dish-desc">Grilled corn-fed chicken wings served with homemade spicy sauce or garlic sauce.</p>
+      </div>
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Chicken Liver</div>
+          <div class="dish-price">£7.00</div>
+        </div>
+        <p class="dish-desc">Seasoned chicken liver sautéed in garlic, lemon juice and pomegranate molasses. Served with pitta bread.</p>
+      </div>
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Grilled Halloumi</div>
+          <div class="dish-price">£7.00</div>
+        </div>
+        <p class="dish-desc">Grilled halloumi served with slices of tomato and olives.</p>
+        <div class="dish-badges"><span class="badge badge-veg">Vegetarian</span></div>
+      </div>
+      <div class="dish full-width">
+        <div class="dish-top">
+          <div class="dish-name">✦ Shared Hot Platter</div>
+          <div class="dish-price">£16.00</div>
+        </div>
+        <p class="dish-desc">Your choice of any 3 hot mezze dishes to share.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── COUSCOUS ── -->
+  <div id="couscous" class="menu-panel reveal">
+    <div class="cat-header">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">Couscous</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <p class="cat-sub">Traditional Algerian recipes · Made entirely in-house · Served with seasonal vegetable sauce</p>
+    <div class="menu-grid">
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Eli's Vegetable Couscous</div>
+          <div class="dish-price">£12.95</div>
+        </div>
+        <p class="dish-desc">Couscous topped with baked slices of courgette, carrot, white cabbage &amp; seasonal vegetable sauce.</p>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Eli's Chicken Couscous</div>
+          <div class="dish-price">£16.95</div>
+        </div>
+        <p class="dish-desc">Couscous topped with a piece of rotisserie chicken, baked slices of courgette, carrot, white cabbage &amp; seasonal vegetable sauce.</p>
+      </div>
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Eli's Lamb Couscous</div>
+          <div class="dish-price">£17.95</div>
+        </div>
+        <p class="dish-desc">Couscous topped with boneless tender lamb meat, baked slices of courgette, carrot, white cabbage &amp; seasonal vegetable sauce.</p>
+      </div>
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Eli's Royal Couscous</div>
+          <div class="dish-price">£20.95</div>
+        </div>
+        <p class="dish-desc">Couscous topped with a piece of rotisserie chicken, lamb meat and two pieces of merguez. With baked courgette, carrot, white cabbage &amp; seasonal vegetable sauce.</p>
+        <div class="dish-badges"><span class="badge badge-sig">Chef's Selection</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── ROTISSERIE ── -->
+  <div id="rotisserie" class="menu-panel reveal">
+    <div class="cat-header">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">Rotisserie &amp; Chicken</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <p class="cat-sub">Corn-fed French chicken · Marinated 24 hours · Served with homemade gravy</p>
+    <div class="menu-grid">
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Whole Rotisserie Chicken</div>
+          <div class="dish-price">£24.00</div>
+        </div>
+        <p class="dish-desc">A whole juicy and succulent freshly roasted corn-fed French chicken, served with homemade in-house chicken gravy.</p>
+        <div class="dish-badges"><span class="badge badge-sig">Serves Two</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Half Rotisserie Chicken</div>
+          <div class="dish-price">£14.00</div>
+        </div>
+        <p class="dish-desc">½ Roasted fresh and crispy corn-fed chicken, served with homemade chicken gravy.</p>
+      </div>
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Quarter Rotisserie Chicken</div>
+          <div class="dish-price">£8.50</div>
+        </div>
+        <p class="dish-desc">¼ Roasted fresh and juicy corn-fed leg or breast chicken, served with in-house made gravy.</p>
+      </div>
+      <div class="dish">
+        <div class="dish-top">
+          <div class="dish-name">Chicken Escalope</div>
+          <div class="dish-price">£15.00</div>
+        </div>
+        <p class="dish-desc">Two pieces of breaded chicken fillet served with green salad and a choice of skin-on fries or mashed potato.</p>
+      </div>
+      <div class="dish full-width">
+        <div class="dish-top">
+          <div class="dish-name">Deluxe Grilled Chicken Burger</div>
+          <div class="dish-price">£15.00</div>
+        </div>
+        <p class="dish-desc">Grilled chicken breast fillet (corn-fed) marinated for 24 hours. Served with a choice of skin-on fries or mashed potato.</p>
+        <div class="dish-badges"><span class="badge badge-sig">24h Marinated</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SIDES ── -->
+  <div id="sides" class="menu-panel reveal">
+    <div class="cat-header">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">Sides</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <p class="cat-sub">To accompany your main — or to graze on</p>
+    <div class="menu-grid">
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Skin-on Fries</div><div class="dish-price">£4.50</div></div>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Roasted Potato</div><div class="dish-price">£4.50</div></div>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Sweet Potato Fries</div><div class="dish-price">£5.50</div></div>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Mashed Potato</div><div class="dish-price">£4.50</div></div>
+        <p class="dish-desc">Creamy and smooth mashed potato with butter.</p>
+        <div class="dish-badges"><span class="badge badge-veg">Vegetarian</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Potato Gratin</div><div class="dish-price">£5.00</div></div>
+        <p class="dish-desc">Thin slices of potato slow cooked in the oven with cream and garlic, topped with cheddar cheese.</p>
+        <div class="dish-badges"><span class="badge badge-veg">Vegetarian</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Ratatouille</div><div class="dish-price">£6.00</div></div>
+        <div class="dish-badges"><span class="badge badge-veg">Vegetarian</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Plain Freekeh</div><div class="dish-price">£5.00</div></div>
+        <p class="dish-desc">Green durum wheat cooked with herb, olive oil and lemon juice.</p>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Green Beans</div><div class="dish-price">£5.50</div></div>
+        <p class="dish-desc">Sautéed fine green beans in olive oil and garlic, topped with roasted almond.</p>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Sautéed Spinach</div><div class="dish-price">£5.50</div></div>
+        <p class="dish-desc">Sautéed spinach in olive oil and garlic, topped with roasted almond.</p>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Carrot &amp; Parsnip Purée</div><div class="dish-price">£5.00</div></div>
+        <p class="dish-desc">Blended cooked carrot &amp; parsnip mixed with butter.</p>
+        <div class="dish-badges"><span class="badge badge-veg">Vegetarian</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── SALAD & SOUP ── -->
+  <div id="salad-soup" class="menu-panel reveal">
+    <div class="cat-header">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">Salads</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <p class="cat-sub">Add grilled chicken to any salad — £4</p>
+    <div class="menu-grid">
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Caesar Salad</div><div class="dish-price">£8.50</div></div>
+        <p class="dish-desc">Romaine lettuce, croutons, parmesan cheese &amp; caesar dressing.</p>
+        <div class="dish-badges"><span class="badge badge-veg">Vegetarian</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Beetroot Salad</div><div class="dish-price">£8.50</div></div>
+        <p class="dish-desc">Romaine, green leaves &amp; cooked beetroot, finished with lime dressing.</p>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Green Apple &amp; Leaf Salad</div><div class="dish-price">£8.50</div></div>
+        <p class="dish-desc">Baby mix leaves, sliced green apple, topped with gorgonzola cheese, dry cranberry, sunflower &amp; pumpkin seeds. Seasoned with fresh lemon juice and olive oil.</p>
+        <div class="dish-badges"><span class="badge badge-veg">Vegetarian</span></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Freekeh Salad</div><div class="dish-price">£8.00</div></div>
+        <p class="dish-desc">Freekeh (green wheat) cooked with Mediterranean herbs, served with side of green leaves and pomegranate seeds.</p>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+    </div>
+
+    <div class="cat-header" style="margin-top:3rem;">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">Soup</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <div class="menu-grid">
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Chicken &amp; Vegetable Soup</div><div class="dish-price">£7.50</div></div>
+        <p class="dish-desc">Shredded breast chicken, carrot, courgette, chick peas in tomato sauce.</p>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Lentil Soup</div><div class="dish-price">£5.50</div></div>
+        <p class="dish-desc">Smooth lentil soup topped with fried onion.</p>
+        <div class="dish-badges"><span class="badge badge-vegan">Vegan</span></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── DESSERTS ── -->
+  <div id="desserts" class="menu-panel reveal">
+    <div class="cat-header">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">Desserts</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <p class="cat-sub">A sweet ending to your meal</p>
+    <div class="menu-grid">
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Lime Posset</div><div class="dish-price">£6.00</div></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Tiramisu</div><div class="dish-price">£5.50</div></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Baklawa <span style="font-weight:300;font-size:0.88rem;">(4 pcs)</span></div><div class="dish-price">£5.50</div></div>
+      </div>
+      <div class="dish">
+        <div class="dish-top"><div class="dish-name">Tarte aux Pommes</div><div class="dish-price">£6.50</div></div>
+        <p class="dish-desc">Served with a side of vanilla custard.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── WINES ── -->
+  <div id="wines" class="menu-panel reveal">
+    <div class="cat-header">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">White Wines</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <div class="wine-grid">
+      <div class="wine-item"><div><div class="wine-name">Pinot Grigio Ca' Luca</div><div class="wine-origin">2021 · Italy</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£8 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£28 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Jardins de Gascogne Blanc</div><div class="wine-origin">2021 · France</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£8 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£29 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Vermentino Sensas</div><div class="wine-origin">2021 · France</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£8 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£31 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Catarratto Contrade Belussa</div><div class="wine-origin">2021 · Italy</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span><span class="badge badge-veg" style="color:var(--sage);border-color:rgba(74,94,64,0.35);">Organic</span></div></div><div class="wine-prices"><div class="wine-price-line">£8 <span class="wine-price-label">175ml</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Viognier Viento Aliseo</div><div class="wine-origin">2021 · Spain</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span><span class="badge badge-veg" style="color:var(--sage);border-color:rgba(74,94,64,0.35);">Biodynamic</span></div></div><div class="wine-prices"><div class="wine-price-line">£9 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£36 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Picpoul de Pinet Domaine Morin</div><div class="wine-origin">2021 · France</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£9 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£37 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Sauvignon Blanc, de Tourane Domaine Octavie</div><div class="wine-origin">2021 · France</div></div><div class="wine-prices"><div class="wine-price-line">£10 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£42 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Sauvignon Blanc First Sighting</div><div class="wine-origin">2021 · South Africa</div></div><div class="wine-prices"><div class="wine-price-line">£44 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Gavi di Gavi Masseria Dei Carmelitani</div><div class="wine-origin">2021 · Italy</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£11 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£45 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Reserve Chardonnay Long Barn</div><div class="wine-origin">2020 · USA</div></div><div class="wine-prices"><div class="wine-price-line">£49 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Bourgogne Chardonnay Nuiton-Beaunoy</div><div class="wine-origin">2020 · France</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£55 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Chablis Domaine Alain Gautheron</div><div class="wine-origin">2021 · France</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£37 <span class="wine-price-label">½ bottle</span></div><div class="wine-price-line">£68 <span class="wine-price-label">bottle</span></div></div></div>
+    </div>
+
+    <div class="cat-header">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">Red Wines</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <div class="wine-grid">
+      <div class="wine-item"><div><div class="wine-name">Merlot Ca' Luca</div><div class="wine-origin">2021 · Italy</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£8 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£28 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Pinot Noir Sensas</div><div class="wine-origin">2021 · France</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£9 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£33 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Côtes du Rhône Mistral</div><div class="wine-origin">2020 · France</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£9 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£35 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Rioja Crianza Fincas de Azabache</div><div class="wine-origin">2019 · Spain</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£9 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£36 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Barbera Rossoufocco</div><div class="wine-origin">2021 · Italy</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span><span class="badge badge-veg" style="color:var(--sage);border-color:rgba(74,94,64,0.35);">Organic</span></div></div><div class="wine-prices"><div class="wine-price-line">£9 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£36 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Nero d'Avola Musita</div><div class="wine-origin">2020 · Italy</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span><span class="badge badge-veg" style="color:var(--sage);border-color:rgba(74,94,64,0.35);">Organic</span></div></div><div class="wine-prices"><div class="wine-price-line">£37 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Bourgogne Pinot Noir Nuiton-Beaunoy</div><div class="wine-origin">2020 · France</div><div class="wine-badges"><span class="badge badge-veg" style="color:var(--sage);border-color:rgba(74,94,64,0.35);">Organic</span></div></div><div class="wine-prices"><div class="wine-price-line">£41 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Cabernet Sauvignon Graciano Viento Aliseo</div><div class="wine-origin">2019 · Spain</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£10 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£42 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Primitivo Ruminat Lunaria</div><div class="wine-origin">2021 · Italy</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span><span class="badge badge-veg" style="color:var(--sage);border-color:rgba(74,94,64,0.35);">Biodynamic</span></div></div><div class="wine-prices"><div class="wine-price-line">£48 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Shiraz Paulett Polish Hill River</div><div class="wine-origin">2018 · Australia</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£48 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Rosso di Montepulciano Crociani</div><div class="wine-origin">2020 · Italy</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£52 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Côtes du Rhône — Biodynamic, Sans Sulfite</div><div class="wine-origin">2021 · France</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span><span class="badge badge-veg" style="color:var(--sage);border-color:rgba(74,94,64,0.35);">Biodynamic</span></div></div><div class="wine-prices"><div class="wine-price-line">£54 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Château des Moines Lalande de Pomerol</div><div class="wine-origin">2018/19 · France</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£56 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Nebbiolo di Langhe Rivetto</div><div class="wine-origin">2020 · Italy</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span><span class="badge badge-veg" style="color:var(--sage);border-color:rgba(74,94,64,0.35);">Organic</span></div></div><div class="wine-prices"><div class="wine-price-line">£66 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Marqués de Riscal Reserva</div><div class="wine-origin">2017/18 · Spain</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£64 <span class="wine-price-label">bottle</span></div></div></div>
+    </div>
+
+    <div class="cat-header">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">Rosé</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <div class="wine-grid">
+      <div class="wine-item"><div><div class="wine-name">Pinot Grigio Rosé San Antini</div><div class="wine-origin">2021 · Italy</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span></div></div><div class="wine-prices"><div class="wine-price-line">£7.50 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£27 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Bardolino Chiaretto Rosato Gorgo</div><div class="wine-origin">2021 · Italy</div><div class="wine-badges"><span class="badge badge-vegan">Vegan</span><span class="badge badge-veg" style="color:var(--sage);border-color:rgba(74,94,64,0.35);">Organic</span></div></div><div class="wine-prices"><div class="wine-price-line">£8.50 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£35 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Château Pardais Provence Rosé</div><div class="wine-origin">2021 · France</div><div class="wine-badges"><span class="badge badge-veg">Vegetarian</span></div></div><div class="wine-prices"><div class="wine-price-line">£11 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£42 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Whispering Angel Château d'Esclans</div><div class="wine-origin">2021 · France</div><div class="wine-badges"><span class="badge badge-veg">Vegetarian</span></div></div><div class="wine-prices"><div class="wine-price-line">£40 <span class="wine-price-label">175ml</span></div><div class="wine-price-line">£69 <span class="wine-price-label">bottle</span></div></div></div>
+    </div>
+
+    <div class="cat-header">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">Fine Wines</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <p class="cat-sub">Curated reserve list · Bottle only</p>
+    <div class="wine-grid">
+      <div class="wine-item"><div><div class="wine-name">Savigny-lès-Beaune Blanc Dom. Prieuré</div><div class="wine-origin">2020 · France · White</div></div><div class="wine-prices"><div class="wine-price-line">£93 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Rully 1er Cru 'Les Cloux' Dom. Belleville</div><div class="wine-origin">2020 · France · White</div></div><div class="wine-prices"><div class="wine-price-line">£136 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Mercurey Blanc, Château de Chamirey</div><div class="wine-origin">2019 · France · White</div></div><div class="wine-prices"><div class="wine-price-line">£127 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Puligny-Montrachet Dom. Jean Pascal</div><div class="wine-origin">2020 · France · White</div></div><div class="wine-prices"><div class="wine-price-line">£187 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Château Brown Blanc Pessac-Léognan</div><div class="wine-origin">2018 · France · White</div></div><div class="wine-prices"><div class="wine-price-line">£167 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Chassagne-Montrachet 1er Cru 'Morgeot'</div><div class="wine-origin">2016 · France · Red</div></div><div class="wine-prices"><div class="wine-price-line">£185 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Beaune 1er Cru 'Morgeot'</div><div class="wine-origin">2019 · France · Red</div></div><div class="wine-prices"><div class="wine-price-line">£160 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Gevrey-Chambertin Domaine Lucien Boillot</div><div class="wine-origin">2018 · France · Red</div></div><div class="wine-prices"><div class="wine-price-line">£223 <span class="wine-price-label">bottle</span></div></div></div>
+      <div class="wine-item"><div><div class="wine-name">Château de Fonbel St-Émilion Grand Cru</div><div class="wine-origin">2015 · France · Red</div></div><div class="wine-prices"><div class="wine-price-line">£120 <span class="wine-price-label">bottle</span></div></div></div>
+    </div>
+  </div>
+
+  <!-- ── COCKTAILS & BEERS ── -->
+  <div id="cocktails" class="menu-panel reveal">
+    <div class="cat-header">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">Cocktails</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <div class="cocktail-grid">
+      <div class="cocktail">
+        <div class="cocktail-name">Gin &amp; Tonic</div>
+        <div class="cocktail-price">£7.50 single &nbsp;·&nbsp; £10 double</div>
+      </div>
+      <div class="cocktail">
+        <div class="cocktail-name">Espresso Martini</div>
+        <div class="cocktail-desc">Vodka, Kahlua, Espresso Shot</div>
+        <div class="cocktail-price">£10</div>
+      </div>
+      <div class="cocktail">
+        <div class="cocktail-name">Pornstar Martini</div>
+        <div class="cocktail-desc">Vanilla Vodka, Passion Fruit Liqueur, Prosecco &amp; Lime Juice</div>
+        <div class="cocktail-price">£10</div>
+      </div>
+      <div class="cocktail">
+        <div class="cocktail-name">Mojito</div>
+        <div class="cocktail-desc">White Bacardi, Mint, Lime Juice &amp; Sugar Syrup</div>
+        <div class="cocktail-price">£10</div>
+      </div>
+      <div class="cocktail">
+        <div class="cocktail-name">Aperol Spritz</div>
+        <div class="cocktail-desc">Aperol, Prosecco &amp; Soda Water</div>
+        <div class="cocktail-price">£9</div>
+      </div>
+      <div class="cocktail">
+        <div class="cocktail-name">Old Fashioned</div>
+        <div class="cocktail-desc">Whisky or Bourbon, Angostura Bitters &amp; Sugar Syrup</div>
+        <div class="cocktail-price">£11</div>
+      </div>
+      <div class="cocktail">
+        <div class="cocktail-name">Bloody Mary</div>
+        <div class="cocktail-desc">Vodka, Tomato Juice, Lemon, Worcestershire Sauce, Tabasco</div>
+        <div class="cocktail-price">£11</div>
+      </div>
+      <div class="cocktail">
+        <div class="cocktail-name">Negroni</div>
+        <div class="cocktail-desc">Gin, Vermouth &amp; Campari</div>
+        <div class="cocktail-price">£11</div>
+      </div>
+    </div>
+
+    <div class="cat-header">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">Beers</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <div class="beer-row">
+      <div class="beer-item">
+        <div class="beer-name">Asahi</div>
+        <div class="beer-size">330ml</div>
+        <div class="beer-price">£5</div>
+      </div>
+      <div class="beer-item">
+        <div class="beer-name">Brewdog Punk IPA</div>
+        <div class="beer-size">330ml</div>
+        <div class="beer-price">£5</div>
+      </div>
+      <div class="beer-item">
+        <div class="beer-name">Birra Moretti</div>
+        <div class="beer-size">330ml</div>
+        <div class="beer-price">£5</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── HOT DRINKS ── -->
+  <div id="hot-drinks" class="menu-panel reveal">
+    <div class="cat-header">
+      <div class="cat-line"></div>
+      <h2 class="cat-title">Hot Drinks</h2>
+      <div class="cat-line right"></div>
+    </div>
+    <div class="hotdrinks-grid">
+      <div class="hotdrink"><span class="hotdrink-name">Pot of Tea <span style="font-weight:300;font-size:0.82rem;color:var(--muted);">(English Breakfast / Earl Grey / Peppermint / Green)</span></span><span class="hotdrink-price">£4.50</span></div>
+      <div class="hotdrink"><span class="hotdrink-name">Espresso</span><span class="hotdrink-price">£2.50</span></div>
+      <div class="hotdrink"><span class="hotdrink-name">Double Espresso</span><span class="hotdrink-price">£3.00</span></div>
+      <div class="hotdrink"><span class="hotdrink-name">Espresso Macchiato</span><span class="hotdrink-price">£3.00</span></div>
+      <div class="hotdrink"><span class="hotdrink-name">Café Americano</span><span class="hotdrink-price">£3.50</span></div>
+      <div class="hotdrink"><span class="hotdrink-name">Cappuccino</span><span class="hotdrink-price">£3.50</span></div>
+      <div class="hotdrink"><span class="hotdrink-name">Flat White</span><span class="hotdrink-price">£3.50</span></div>
+      <div class="hotdrink"><span class="hotdrink-name">Café Latte</span><span class="hotdrink-price">£3.50</span></div>
+      <div class="hotdrink"><span class="hotdrink-name">Hot Chocolate</span><span class="hotdrink-price">£4.00</span></div>
+      <div class="hotdrink"><span class="hotdrink-name">Flavoured Hot Chocolate</span><span class="hotdrink-price">£4.50</span></div>
+      <div class="hotdrink"><span class="hotdrink-name">Turkish Coffee with Baklawa (1pc)</span><span class="hotdrink-price">£3.50</span></div>
+      <div class="hotdrink"><span class="hotdrink-name">Flora Tea</span><span class="hotdrink-price">£6.50</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ════ BOOKING ════ -->
+<section id="booking">
+  <div class="booking-grid">
+    <div class="booking-info reveal">
+      <span class="section-eyebrow">Reservations</span>
+      <h2 class="section-heading">Book Your<br>Table</h2>
+      <p class="booking-lead">Our intimate dining room fills quickly. We recommend booking ahead to guarantee your seat. Reservations can also be made by phone.</p>
+      <div class="info-rows">
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div>
+            <h5>Hours</h5>
+            <p>Monday – Saturday, 12:00 PM – 10:00 PM</p>
+            <span class="closed-badge">Closed every Sunday</span>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div>
+            <h5>Address</h5>
+            <p>6-8 Bute Street, South Kensington<br>London SW7 3EX</p>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div>
+            <h5>Phone</h5>
+            <p><a href="tel:+442075812002">+44 (0) 20 7581 2002</a></p>
+          </div>
+        </div>
+        <div class="info-row">
+          <div class="info-dot"></div>
+          <div>
+            <h5>Email</h5>
+            <p><a href="mailto:info@elisrestaurant.co.uk">info@elisrestaurant.co.uk</a></p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-card reveal">
+      <h3>Make a Reservation</h3>
+      <div class="form-row">
+        <div class="fg"><label>First Name</label><input type="text" placeholder="First name"></div>
+        <div class="fg"><label>Last Name</label><input type="text" placeholder="Last name"></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Email</label><input type="email" placeholder="your@email.com"></div>
+        <div class="fg"><label>Phone</label><input type="tel" placeholder="+44..."></div>
+      </div>
+      <div class="form-row">
+        <div class="fg"><label>Date</label><input type="date"></div>
+        <div class="fg">
+          <label>Time</label>
+          <select>
+            <option>12:00</option><option>12:30</option><option>13:00</option><option>13:30</option>
+            <option>14:00</option><option>18:00</option><option>18:30</option><option>19:00</option>
+            <option>19:30</option><option>20:00</option><option>20:30</option><option>21:00</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-row">
+        <div class="fg">
+          <label>Guests</label>
+          <select>
+            <option>1 guest</option><option>2 guests</option><option>3 guests</option>
+            <option>4 guests</option><option>5 guests</option><option>6 guests</option>
+            <option>7+ (please call)</option>
+          </select>
+        </div>
+        <div class="fg">
+          <label>Occasion</label>
+          <select>
+            <option>None / Regular dining</option><option>Birthday</option><option>Anniversary</option>
+            <option>Business dinner</option><option>Date night</option><option>Family gathering</option>
+          </select>
+        </div>
+      </div>
+      <div class="fg"><label>Special Requests</label><textarea placeholder="Dietary needs, allergies, accessibility, celebrations..."></textarea></div>
+      <button class="form-submit-btn" onclick="submitForm(this)">Confirm Reservation</button>
+      <p class="form-note">Or call us: +44 (0) 20 7581 2002 · Mon–Sat, noon to 10pm</p>
+    </div>
+  </div>
+</section>
+
+<!-- ════ FIND US ════ -->
+<div id="find-us">
+  <div class="find-info reveal">
+    <span class="section-eyebrow">Location</span>
+    <h2 class="section-heading" style="font-family:'Almendra Display',serif;">South<br>Kensington</h2>
+    <div class="find-details">
+      <div class="find-row">
+        <div class="find-dot"></div>
+        <div>
+          <h5>Address</h5>
+          <p>6-8 Bute Street<br>South Kensington, London SW7 3EX</p>
+        </div>
+      </div>
+      <div class="find-row">
+        <div class="find-dot"></div>
+        <div>
+          <h5>Nearest Tube</h5>
+          <p>South Kensington Station<br>Piccadilly / Circle / District — 3 min walk</p>
+        </div>
+      </div>
+      <div class="find-row">
+        <div class="find-dot"></div>
+        <div>
+          <h5>Directions</h5>
+          <p><a href="https://maps.app.goo.gl/P1qEwFauof6YAeS4A" target="_blank">Open in Google Maps →</a></p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="map-wrap">
+    <iframe
+      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2484.5541564278826!2d-0.17897!3d51.49415!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x48760547a68c62a1%3A0xef432498afca72ee!2sEli&#39;s%20Restaurant!5e0!3m2!1sen!2suk!4v1"
+      allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade">
+    </iframe>
+  </div>
+</div>
+
+<!-- ════ FOOTER ════ -->
+<footer>
+  <div class="footer-inner">
+    <div class="foot-brand">
+      <span class="foot-brand-name">Eli's</span>
+      <p>A celebration of French rotisserie tradition and North African culinary heritage, in South Kensington since 2014. Everything made in-house, with love.</p>
+    </div>
+    <div class="foot-col">
+      <h5>Menu</h5>
+      <a href="#" onclick="showMenu('cold-mezze', document.querySelectorAll('.menu-nav-btn')[0]); document.getElementById('menu').scrollIntoView()">Cold Mezze</a>
+      <a href="#" onclick="showMenu('couscous', document.querySelectorAll('.menu-nav-btn')[2]); document.getElementById('menu').scrollIntoView()">Couscous</a>
+      <a href="#" onclick="showMenu('rotisserie', document.querySelectorAll('.menu-nav-btn')[3]); document.getElementById('menu').scrollIntoView()">Rotisserie</a>
+      <a href="#" onclick="showMenu('wines', document.querySelectorAll('.menu-nav-btn')[7]); document.getElementById('menu').scrollIntoView()">Wine List</a>
+      <a href="#" onclick="showMenu('desserts', document.querySelectorAll('.menu-nav-btn')[6]); document.getElementById('menu').scrollIntoView()">Desserts</a>
+    </div>
+    <div class="foot-col">
+      <h5>Visit</h5>
+      <p>6-8 Bute Street</p>
+      <p>South Kensington</p>
+      <p>London SW7 3EX</p>
+      <p style="margin-top:0.6rem;">Mon–Sat 12–22:00</p>
+      <p style="color:#D47050;">Closed Sundays</p>
+    </div>
+    <div class="foot-col">
+      <h5>Contact</h5>
+      <a href="tel:+442075812002">+44 (0) 20 7581 2002</a>
+      <a href="mailto:info@elisrestaurant.co.uk">info@elisrestaurant.co.uk</a>
+      <a href="#booking" style="margin-top:0.8rem;color:var(--terra-lt);">Reserve a Table →</a>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <p>© 2026 Eli's Restaurant, London · All rights reserved.</p>
+    <div class="foot-socials">
+      <a href="#">Instagram</a>
+      <a href="#">Facebook</a>
+      <a href="#">TripAdvisor</a>
+    </div>
+  </div>
+</footer>
+
+<script>
+// Menu tab switching
+function showMenu(id, btn) {
+  document.querySelectorAll('.menu-panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.menu-nav-btn').forEach(b => b.classList.remove('active'));
+  const panel = document.getElementById(id);
+  if (panel) panel.classList.add('active');
+  if (btn) btn.classList.add('active');
+}
+
+// Form submit
+function submitForm(btn) {
+  btn.textContent = 'Sending…';
+  btn.disabled = true;
+  setTimeout(() => {
+    btn.textContent = '✓ Request Received';
+    btn.style.background = 'var(--sage)';
+  }, 1200);
+  setTimeout(() => {
+    window.open('https://www.sevenrooms.com/explore/elisrestaurant/reservations/create/search/', '_blank');
+  }, 900);
+}
+
+// Scroll reveal
+const revealEls = document.querySelectorAll('.reveal');
+const revealObserver = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      e.target.classList.add('vis');
+      revealObserver.unobserve(e.target);
+    }
+  });
+}, { threshold: 0.07 });
+revealEls.forEach(el => revealObserver.observe(el));
+
+// Nav background on scroll
+window.addEventListener('scroll', () => {
+  document.querySelector('nav').style.borderBottomColor =
+    window.scrollY > 80 ? 'rgba(184,136,42,0.3)' : 'rgba(184,136,42,0.15)';
+});
+</script>
+</body>
+</html>
